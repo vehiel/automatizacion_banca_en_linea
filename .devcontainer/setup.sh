@@ -2,8 +2,10 @@
 
 set -e
 
-echo "🔧 Configurando Yarn (fix key error)..."
+echo "🔧 Updating system..."
+sudo apt-get update
 
+echo "🔧 Fixing Yarn key issue..."
 curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg \
   | sudo gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg
 
@@ -12,20 +14,20 @@ echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/deb
 
 sudo apt-get update
 
-echo "🐍 Instalando dependencias Python..."
+echo "🐍 Installing Python dependencies..."
 pip install --upgrade pip
 
 if [ -f requirements.txt ]; then
   pip install -r requirements.txt
 fi
 
-echo "🎭 Instalando Playwright..."
+echo "🎭 Installing Playwright..."
 pip install playwright
 
-echo "📦 Instalando dependencias del sistema (Playwright)..."
-sudo playwright install-deps
+echo "📦 Installing OS dependencies (this fixes your error)..."
+python -m playwright install-deps
 
-echo "🌐 Instalando navegadores..."
-playwright install
+echo "🌐 Installing browsers..."
+python -m playwright install
 
-echo "✅ Setup completo!"
+echo "✅ Setup complete!"

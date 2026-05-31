@@ -10,3 +10,6 @@ class LoginAcciones:
     def verificarElementos(self):
         self.loginPage.etiquetaTitulo.wait_for()
         assert self.loginPage.etiquetaTitulo.is_visible()
+        text = self.loginPage.etiquetaTitulo.inner_text()
+        print(f"el titulo es: {text}")
+        return text

@@ -1,20 +1,35 @@
 class PaginaLogin:
+
+#elementos
     def __init__(self, page):
         self.page = page
 
-        # localizadores
-        self.inputUsuario = page.get_by_role("textbox", name="Usuario")
-        self.inputContrasena = page.get_by_role("textbox", name="Contraseña")
-        self.bntIngresar = page.get_by_role("button", name="Ingresar")
-        self.etiquetaTitulo = page.get_by_role("heading", name="HOME BANKING")
+        self.input_usuario = page.get_by_role(
+            "textbox",
+            name="Usuario"
+        )
 
-    # Métodos 
+        self.input_contrasena = page.get_by_role(
+            "textbox",
+            name="Contraseña"
+        )
+
+        self.btn_ingresar = page.get_by_role(
+            "button",
+            name="Ingresar"
+        )
+
+#metodos
     def go_to(self):
-        self.page.goto("https://homebanking-demo-tests.netlify.app/")
+        self.page.goto(
+            "https://homebanking-demo-tests.netlify.app/"
+        )
 
-    def ingresarUsuarioContrasena(self, usuario: str, contrasena: str):
-        self.inputUsuario.fill(usuario)
-        self.inputContrasena.fill(contrasena)
+    def ingresar_usuario(self, usuario):
+        self.input_usuario.fill(usuario)
 
-    def clickIngresar(self):
-        self.bntIngresar.click()
+    def ingresar_contrasena(self, contrasena):
+        self.input_contrasena.fill(contrasena)
+
+    def click_ingresar(self):
+        self.btn_ingresar.click()

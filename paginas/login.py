@@ -1,8 +1,9 @@
 class PaginaLogin:
-
-#elementos
     def __init__(self, page):
         self.page = page
+
+#elementos
+    
 
         self.input_usuario = page.get_by_role(
             "textbox",

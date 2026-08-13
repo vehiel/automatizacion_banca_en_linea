@@ -3,22 +3,11 @@ class PaginaLogin:
         self.page = page
 
 #elementos
-    
+        self.input_usuario = page.get_by_role("textbox",name="Usuario")
+        self.input_contrasena = page.get_by_role("textbox",name="Contraseña")
+        self.btn_ingresar = page.get_by_role("button",name="Ingresar")
+        self.titulo_pagina_login = page.get_by_role("heading", name="HOME BANKING")
 
-        self.input_usuario = page.get_by_role(
-            "textbox",
-            name="Usuario"
-        )
-
-        self.input_contrasena = page.get_by_role(
-            "textbox",
-            name="Contraseña"
-        )
-
-        self.btn_ingresar = page.get_by_role(
-            "button",
-            name="Ingresar"
-        )
 
 #metodos
     def go_to(self):

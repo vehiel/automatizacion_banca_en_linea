@@ -8,6 +8,10 @@ class PaginaPanelInicial:
         self.opcion_prestamos = page.get_by_role("listitem").filter(has_text="Préstamos")
         self.opcion_pago_servicios = page.get_by_role("listitem").filter(has_text="Pago de Servicios")
         self.opcion_tarjetas_virtuales = page.locator("#menu-item-virtual-card")
+        self.boton_salir = page.get_by_role("button", name="Salir")
+        self.boton_cancelar_salir = page.get_by_role("button", name="Cancelar")
+        self.boton_confirmar_salir = page.get_by_role("button", name="Confirmar")
+
     
     #elementos
 
@@ -15,3 +19,9 @@ class PaginaPanelInicial:
     #metodos
     def ingresar_opcion_transferencias(self):
         self.opcion_transferencias.click()
+
+    def presionar_salir(self):
+        self.boton_salir.click()
+
+    def confirmar_salir(self):
+        self.boton_confirmar_salir.click()

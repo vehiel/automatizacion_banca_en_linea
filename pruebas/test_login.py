@@ -1,5 +1,5 @@
 from acciones.login_acciones import LoginAcciones
-from acciones.pagina_principal_acciones import PanelPrincipalAcciones
+from acciones.panel_principal_acciones import PanelPrincipalAcciones
 from acciones.transferencias_acciones import TransferenciasAcciones
 
 

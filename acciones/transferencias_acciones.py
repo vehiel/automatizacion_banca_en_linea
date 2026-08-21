@@ -10,7 +10,7 @@ class TransferenciasAcciones:
 
     def validar_titulo(self):
         texto = self.transferencias.titulo_pagina_transferencias.text_content()
-        print(f"Título obtenido: {texto}")
+        #print(f"Título obtenido: {texto}")
         return "Transferencias" == texto
 
     def realizar_transaccion_10(self, monto, descripcion):

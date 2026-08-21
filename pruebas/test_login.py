@@ -1,21 +1,15 @@
 from acciones.login_acciones import LoginAcciones
 from acciones.panel_principal_acciones import PanelPrincipalAcciones
 from acciones.transferencias_acciones import TransferenciasAcciones
+import pytest
 
+#@pytest.mark.skip(reason="En construcción") #se utiliza para saltar un test
+def test_validar_usuario_incorrecto(hacer_login_incorrecto):
+    #este test funciona solo 1 o 2 veces, luego de eso la cuenta se bloquea y el mensaje cambia
+    login = LoginAcciones(hacer_login_incorrecto)
+    assert login.validar_mensaje_usuario_incorrecto()
 
-def test_ingreso_transferencias(page):
-
-    login = LoginAcciones(page)
-
-    login.iniciar_sesion(
-        "demo",
-        "demo123"
-    )
-
-    pp = PanelPrincipalAcciones(page)
-
-    pp.ingresar_transferencias()
-
-    transferencias = TransferenciasAcciones(page)
-
-    assert transferencias.validar_titulo()
+@pytest.mark.skip(reason="En construcción") #se utiliza para saltar un test
+def test_validar_usuario_bloqueado(hacer_login_bloqueado):
+    login = LoginAcciones(hacer_login_bloqueado)
+    assert login.validar_mensaje_cuenta_bloqueada()

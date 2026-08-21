@@ -7,6 +7,8 @@ class PaginaLogin:
         self.input_contrasena = page.get_by_role("textbox",name="Contraseña")
         self.btn_ingresar = page.get_by_role("button",name="Ingresar")
         self.titulo_pagina_login = page.get_by_role("heading", name="HOME BANKING")
+        self.mensaje_cuenta_bloqueada = page.get_by_text("Tu cuenta ha sido bloqueada")
+        self.mensaje_usuario_incorrecto = page.get_by_text("Usuario o contraseña")
 
 
 #metodos

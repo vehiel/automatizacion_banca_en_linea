@@ -1,6 +1,7 @@
 class PaginaPanelInicial:
     def __init__(self, page):
         self.page = page
+        #elementos
         self.titulo_pagina_panel_principal = page.get_by_role("heading", name="Panel Principal")
         self.opcion_transferencias = page.get_by_role("listitem").filter(has_text="Transferencias")
         self.opcion_mis_datos = page.get_by_role("listitem").filter(has_text="Mis Datos")
@@ -11,9 +12,8 @@ class PaginaPanelInicial:
         self.boton_salir = page.get_by_role("button", name="Salir")
         self.boton_cancelar_salir = page.get_by_role("button", name="Cancelar")
         self.boton_confirmar_salir = page.get_by_role("button", name="Confirmar")
+        self.etiqueta_nombre = page.locator("#user-name")
 
-    
-    #elementos
 
 
     #metodos
@@ -25,3 +25,8 @@ class PaginaPanelInicial:
 
     def confirmar_salir(self):
         self.boton_confirmar_salir.click()
+
+    #al ser una etique que varia según el nombre del usuario en sesión, esta etiqueta se debe buscar de forma dinamica con el nombre del usuario
+    def obtener_nombre_usuario(self, nombre_usuario):
+        return self.page.get_by_text(nombre_usuario)
+    

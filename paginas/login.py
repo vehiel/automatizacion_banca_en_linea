@@ -1,23 +1,15 @@
 class PaginaLogin:
-
-#elementos
     def __init__(self, page):
         self.page = page
 
-        self.input_usuario = page.get_by_role(
-            "textbox",
-            name="Usuario"
-        )
+#elementos
+        self.input_usuario = page.get_by_role("textbox",name="Usuario")
+        self.input_contrasena = page.get_by_role("textbox",name="Contraseña")
+        self.btn_ingresar = page.get_by_role("button",name="Ingresar")
+        self.titulo_pagina_login = page.get_by_role("heading", name="HOME BANKING")
+        self.mensaje_cuenta_bloqueada = page.get_by_text("Tu cuenta ha sido bloqueada")
+        self.mensaje_usuario_incorrecto = page.get_by_text("Usuario o contraseña")
 
-        self.input_contrasena = page.get_by_role(
-            "textbox",
-            name="Contraseña"
-        )
-
-        self.btn_ingresar = page.get_by_role(
-            "button",
-            name="Ingresar"
-        )
 
 #metodos
     def go_to(self):

@@ -3,11 +3,11 @@ from acciones.transferencias_acciones import TransferenciasAcciones
 import pytest
 from paginas.datos import DatosPanelInicial
 
-@pytest.mark.skip(reason="En construcción") #se utiliza para saltar un test
-def test_ingreso_transferencias(hacer_login):
-    panel_principal = PanelPrincipalAcciones(hacer_login)
+#@pytest.mark.skip(reason="En construcción") #se utiliza para saltar un test
+def test_ingreso_transferencias(hacer_login_valido):
+    panel_principal = PanelPrincipalAcciones(hacer_login_valido)
     panel_principal.ingresar_transferencias()
-    transferencias = TransferenciasAcciones(hacer_login)
+    transferencias = TransferenciasAcciones(hacer_login_valido)
     assert transferencias.validar_titulo()
     transferencias.realizar_transaccion_10("10","vehiel demo")
 

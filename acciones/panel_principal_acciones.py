@@ -2,6 +2,7 @@ from paginas.pagina_panel_principal import PaginaPanelInicial
 from playwright.sync_api import expect
 from acciones.login_acciones import LoginAcciones
 from paginas.datos import DatosPanelInicial
+import allure
 
 class PanelPrincipalAcciones:
 
@@ -9,9 +10,11 @@ class PanelPrincipalAcciones:
         self.PanelPrincipal = PaginaPanelInicial(page)
         self.loginacciones = LoginAcciones(page)
 
+    @allure.step("panel_principal_acciones -> Igresar opción transferencias")
     def ingresar_transferencias(self):
         self.PanelPrincipal.ingresar_opcion_transferencias()
 
+    @allure.step("panel_principal_acciones -> Opción salir")
     def salir(self):
         expect(self.PanelPrincipal.boton_salir).to_be_visible()
         expect(self.PanelPrincipal.boton_salir).to_be_enabled()
@@ -20,6 +23,7 @@ class PanelPrincipalAcciones:
         self.PanelPrincipal.confirmar_salir()
         self.loginacciones.validar_pagina_inicial()
 
+    @allure.step("panel_principal_acciones -> validar nombre usuario")
     def validar_nombre_usuario(self, nombre_usuario_login):
         elemento_dinamico = self.PanelPrincipal.obtener_nombre_usuario(DatosPanelInicial.nombre_usuario_1)
         expect(elemento_dinamico).to_be_visible

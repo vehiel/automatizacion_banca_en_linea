@@ -15,3 +15,6 @@ venv/
 # Reportes
 htmlcov/
 coverage.xml
+allure-results/
+screenshots/
+allure-report/

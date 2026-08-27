@@ -18,3 +18,4 @@ class DatosLogin:
     texto_mensaje_cuenta_bloqueada = "Tu cuenta ha sido bloqueada temporalmente. Contacta con soporte."
     texto_mensaje_usuario_incorrecto = "Usuario o contraseña incorrectos. Intentos restantes: 1"
     texto_mensaje_usuario_incorrecto_2 = "Usuario o contraseña incorrectos. Intentos restantes: 2"
+    texto_mensaje_usuario_incorrecto_3 = "Demasiados intentos fallidos. Tu cuenta ha sido bloqueada."

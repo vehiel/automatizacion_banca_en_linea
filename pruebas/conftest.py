@@ -57,16 +57,14 @@ def hacer_login_incorrecto(page):
     login = LoginAcciones(page)
     panelprincipal = PanelPrincipalAcciones(page)
     login.iniciar_sesion(DatosLogin.usuario_incorrecto,DatosLogin.usuario_incorrecto)
-    yield page
-    panelprincipal.salir()
+    return page
 
 @pytest.fixture
 def hacer_login_bloqueado(page):
     login = LoginAcciones(page)
     panelprincipal = PanelPrincipalAcciones(page)
     login.iniciar_sesion(DatosLogin.usuario_bloq,DatosLogin.contrasenna_bloq)
-    yield page
-    panelprincipal.salir()
+    return page
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):

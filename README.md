@@ -23,6 +23,9 @@ Automatizar los principales flujos funcionales de la aplicación de Banca en Lí
 - Pytest
 - Allure Reports
 - Git
+- GitHub
+- GitHub Actions
+- GitHub Pages
 - GitHub Codespaces
 - Visual Studio Code
 
@@ -32,6 +35,10 @@ Automatizar los principales flujos funcionales de la aplicación de Banca en Lí
 
 ```text
 automatizacion_banca_en_linea/
+│
+├── .github/
+│   └── workflows/
+│       └── pruebas.yml
 │
 ├── acciones/
 │   ├── login_acciones.py
@@ -51,8 +58,10 @@ automatizacion_banca_en_linea/
 │   └── test_realizar_transferencia.py
 │
 ├── allure-results/
+├── allure-report/
 ├── screenshots/
 ├── pytest.ini
+├── postCreateCommand.sh
 └── README.md
 ```
 
@@ -122,7 +131,7 @@ contiene:
 Ejemplo:
 
 ```python
-transferencias.realizar_transaccion_fallida("100","fallida")
+transferencias.realizar_transaccion_fallida("100", "fallida")
 assert transferencias.validar_mesaje_error_transferencia()
 ```
 
@@ -131,7 +140,8 @@ assert transferencias.validar_mesaje_error_transferencia()
 ## Fixtures
 
 El proyecto utiliza Pytest Fixtures para reutilizar funcionalidades comunes.
-Además de poder tener flexibilidad para usar diferencias escenarios/usuarios sin tener que modificar una prueba por completo.
+
+Además, permite utilizar distintos escenarios y usuarios sin necesidad de modificar cada prueba individualmente.
 
 ### Login válido
 
@@ -183,7 +193,7 @@ python -m pytest -v -s
 
 ## Reportería
 
-El proyecto utiliza Allure Reports.
+El proyecto utiliza Allure Reports para la generación de evidencias y métricas de ejecución.
 
 ### Generación de resultados
 
@@ -200,11 +210,27 @@ gracias a la configuración de:
 addopts = --alluredir=allure-results
 ```
 
-### Visualización del reporte
+### Generación de reporte HTML
+
+Los resultados son transformados automáticamente en un reporte HTML mediante Allure.
+
+El reporte generado se almacena en:
+
+```text
+allure-report/
+```
+
+### Visualización local
 
 ```bash
 allure serve allure-results
 ```
+
+### Publicación automática
+
+Los reportes se publican automáticamente mediante GitHub Pages después de las ejecuciones exitosas sobre la rama principal.
+
+Esto permite que usuarios técnicos y no técnicos puedan consultar los resultados desde un navegador web sin necesidad de instalar herramientas adicionales.
 
 ---
 
@@ -223,6 +249,8 @@ screenshots/
 
 Esto facilita el análisis y la identificación de defectos.
 
+Adicionalmente, las capturas son almacenadas como Artifacts en GitHub Actions para facilitar el análisis posterior de las ejecuciones.
+
 ---
 
 ## Configuración automática de entorno
@@ -235,13 +263,51 @@ postCreateCommand.sh
 
 que instala automáticamente:
 
-- Java
-- Allure Commandline
-- Playwright
-- Dependencias del sistema
-- Navegadores soportados
+- Java.
+- Allure Commandline.
+- Playwright.
+- Dependencias del sistema.
+- Navegadores soportados.
 
 Esto permite reconstruir un Codespace completamente funcional sin configuraciones manuales.
+
+La misma configuración es utilizada tanto para desarrollo en Codespaces como para la ejecución automática de pruebas en GitHub Actions, garantizando consistencia entre ambientes.
+
+---
+
+## Integración Continua (CI/CD)
+
+El proyecto utiliza GitHub Actions para ejecutar automáticamente las pruebas cada vez que se realiza:
+
+- Un Pull Request hacia la rama `main`.
+- Un Push directo sobre la rama `main`.
+
+### Funcionalidades implementadas
+
+- Ejecución automática de pruebas Playwright.
+- Generación automática de resultados Allure.
+- Generación automática de reporte HTML.
+- Almacenamiento de evidencias como Artifacts.
+- Captura automática de screenshots en pruebas fallidas.
+- Publicación automática de reportes mediante GitHub Pages.
+
+### Flujo de ejecución
+
+```text
+Push / Pull Request
+        ↓
+GitHub Actions
+        ↓
+Ejecución de pruebas
+        ↓
+Generación de Allure Results
+        ↓
+Generación de Allure Report
+        ↓
+Publicación automática
+        ↓
+GitHub Pages
+```
 
 ---
 
@@ -279,33 +345,56 @@ main
 
 ---
 
+## Levantar Codegen
 
-## Levantar codegen
 ```bash
 python -m playwright codegen https://homebanking-demo-tests.netlify.app/
 ```
 
-
 ---
+
 ## Buenas prácticas del proyecto
 
 - Mantener localizadores en la carpeta `paginas`.
 - Mantener flujos funcionales en `acciones`.
 - Mantener assertions únicamente en `pruebas`.
 - Evitar quemar datos cuando sea posible.
-- Utilizar locators robustos de Playwright usando codegen.
+- Utilizar locators robustos de Playwright usando Codegen.
 - Utilizar fixtures para funcionalidades reutilizables.
 - Mantener las pruebas independientes entre sí.
+- Centralizar textos y datos reutilizables cuando aplique.
+- Mantener los escenarios desacoplados de los datos de prueba.
+
+---
+
+## Estado actual del proyecto
+
+### Funcionalidades implementadas
+
+- Framework Playwright + Pytest.
+- Patrón Page Object Model (POM).
+- Capa de Acciones para lógica de negocio.
+- Fixtures reutilizables para diferentes tipos de usuario.
+- Captura automática de screenshots en fallos.
+- Reportería Allure.
+- GitHub Actions.
+- GitHub Pages.
+- Configuración automática mediante Codespaces.
+- Generación automática de Artifacts.
+- Publicación automática de resultados.
 
 ---
 
 ## Próximas mejoras
 
-- Screenshots en éxitos y fallos.
-- Evidencias adicionales en Allure.
+- Implementación de Steps detallados en Allure.
 - Datos de prueba externos (JSON).
 - Ejecución por tags.
-- Métricas y dashboard de ejecución.
+- Dashboard de métricas históricas.
+- Integración con notificaciones por correo o Teams.
+- Ejecuciones programadas (Scheduled Runs).
+- Publicación de métricas de calidad por versión.
+- Reutilización de datos de prueba entre escenarios.
 
 ---
 
@@ -315,6 +404,4 @@ python -m playwright codegen https://homebanking-demo-tests.netlify.app/
 
 Quality Assurance Functional Specialist II
 
-Proyecto de Automatización de Banca en Línea
-
-linea nueva para verficiación del workflow
+Proyecto de Automatización de Banca en Línea.

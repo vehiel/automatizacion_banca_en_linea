@@ -38,3 +38,17 @@ jobs:
       - name: Ejecutar pruebas
         run: |
           python -m pytest pruebas -v
+
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4  
+        if: always()
+        with:
+          name: allure-results
+          path: allure-results
+      
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: screenshots

@@ -9,10 +9,19 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   pruebas:
 
     runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
 
@@ -33,6 +42,7 @@ jobs:
 
       - name: Instalar navegadores Playwright
         run: |
+          python -m playwright install-deps
           python -m playwright install chromium
 
       - name: Ejecutar pruebas
@@ -51,14 +61,18 @@ jobs:
           tar -zxvf allure-2.45.0.tgz
 
       - name: Generar reporte Allure
+        if: always()
         run: |
           ./allure-2.45.0/bin/allure generate allure-results -o allure-report --clean
-      
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
+
+      - name: Setup Pages
         if: always()
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: allure-report
           path: allure-report
         
       - name: Upload Allure Results
@@ -67,6 +81,7 @@ jobs:
         with:
           name: allure-results
           path: allure-results
+          if-no-files-found: ignore
       
       - name: Upload Screenshots
         uses: actions/upload-artifact@v4
@@ -74,3 +89,9 @@ jobs:
         with:
           name: screenshots
           path: screenshots
+          if-no-files-found: ignore
+          
+      - name: Deploy to GitHub Pages
+        if: always()
+        id: deployment
+        uses: actions/deploy-pages@v4

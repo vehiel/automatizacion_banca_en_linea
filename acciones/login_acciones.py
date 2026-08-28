@@ -28,4 +28,21 @@ class LoginAcciones:
     @allure.step("login_acciones -> Validar mensaje usuario incorrecto")
     def validar_mensaje_usuario_incorrecto(self):
             expect(self.login.mensaje_usuario_incorrecto).to_be_visible
-            return self.login.mensaje_usuario_incorrecto.text_content() == DatosLogin.texto_mensaje_usuario_incorrecto
+            respuesta = False
+            if self.login.mensaje_usuario_incorrecto.text_content() == DatosLogin.texto_mensaje_usuario_incorrecto:
+                 respuesta = True
+                 print(f"se cambie respuesta a: {respuesta}")
+            elif respuesta == False:
+                respuesta = self.login.mensaje_usuario_incorrecto.text_content() == DatosLogin.texto_mensaje_usuario_incorrecto_2
+                print(f"entra al segundo if, respesta es: {respuesta}")
+            elif respuesta == False:
+                respuesta = self.login.mensaje_usuario_incorrecto.text_content() == DatosLogin.texto_mensaje_usuario_incorrecto_3
+                print(f"entra al tercer if, respesta es: {respuesta}")
+            
+            return respuesta
+
+    # otra forma de hacerlo, pero de momento dejo lo mío como viejo conocido
+    #return mensaje in [
+    #     DatosLogin.texto_mensaje_usuario_incorrecto,
+    #     DatosLogin.texto_mensaje_usuario_incorrecto_2
+    #]

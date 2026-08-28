@@ -316,3 +316,5 @@ python -m playwright codegen https://homebanking-demo-tests.netlify.app/
 Quality Assurance Functional Specialist II
 
 Proyecto de Automatización de Banca en Línea
+
+linea nueva para verficiación del workflow

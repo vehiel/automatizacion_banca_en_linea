@@ -38,7 +38,29 @@ jobs:
       - name: Ejecutar pruebas
         run: |
           python -m pytest pruebas -v
+          continue-on-error: true
 
+      - name: Instalar Java
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jre    
+
+      - name: Instalar Allure
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.45.0/allure-2.45.0.tgz
+          tar -zxvf allure-2.45.0.tgz
+
+      - name: Generar reporte Allure
+        run: |
+          ./allure-2.45.0/bin/allure generate allure-results -o allure-report --clean
+      
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report
+        
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4  
         if: always()

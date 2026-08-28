@@ -14,6 +14,6 @@ def test_validar_usuario_bloqueado(hacer_login_bloqueado):
     login = LoginAcciones(hacer_login_bloqueado)
     assert login.validar_mensaje_cuenta_bloqueada()
 
-@pytest.mark.skip(reason="temporal solo pruebas") #se utiliza para saltar un test
+#@pytest.mark.skip(reason="temporal solo pruebas") #se utiliza para saltar un test
 def test_assert_false_prueba(hacer_login_valido):
     assert False

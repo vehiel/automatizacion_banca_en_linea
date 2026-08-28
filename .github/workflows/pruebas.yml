@@ -38,7 +38,7 @@ jobs:
       - name: Ejecutar pruebas
         run: |
           python -m pytest pruebas -v
-          continue-on-error: true
+        continue-on-error: true
 
       - name: Instalar Java
         run: |
